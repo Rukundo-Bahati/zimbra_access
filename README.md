@@ -1,242 +1,237 @@
-Zimbra Pre-Auth URL Generator
-
+# Zimbra Pre-Auth URL Generator
 
 A secure, interactive tool for generating Zimbra Collaboration Suite pre-authentication URLs for authorized testing and administrative purposes.
 
-📋 Table of Contents
-Overview
+---
 
-Features
+## Table of Contents
 
-Prerequisites
+* Overview
+* Features
+* Prerequisites
+* Installation
+* Usage
+* Interactive Walkthrough
+* Security Considerations
+* Troubleshooting
+* Technical Details
+* Legal Notice
+* Contributing
+* Support
+* Version History
 
-Installation
+---
 
-Usage
+## Overview
 
-Interactive Walkthrough
+This tool generates pre-authentication URLs for Zimbra mail servers, allowing authorized users to create single-use, time-limited access links. It implements Zimbra's pre-authentication mechanism using HMAC-SHA1 signatures.
 
-Security Considerations
+---
 
-Troubleshooting
+## Features
 
-Legal Notice
+* Interactive step-by-step wizard for guided input
+* Input validation for email format and required fields
+* Secure key handling with masked display
+* Optional clipboard integration
+* Custom expiration control for generated links
+* Detailed output with metadata
+* Built-in authorization confirmation
 
-🔍 Overview
-This tool generates pre-authentication URLs for Zimbra mail servers, allowing authorized users to create single-use, time-limited access links. It implements Zimbra's preauth authentication mechanism using HMAC-SHA1 signatures.
+---
 
-✨ Features
-Interactive Step-by-Step Wizard - Guided input collection
+## Prerequisites
 
-Input Validation - Ensures correct email format and required fields
+* Python 3.6 or higher
+* No external dependencies required (standard library only)
+* Optional: `pyperclip` for clipboard functionality
 
-Secure Key Handling - Masks sensitive keys in confirmation screen
+---
 
-Clipboard Integration - Auto-copy generated URLs (optional)
+## Installation
 
-Expiration Control - Set custom link expiration times
+### Download the Script
 
-Comprehensive Output - Detailed link information and metadata
-
-Authorization Confirmation - Built-in security acknowledgment
-
-📦 Prerequisites
-Python 3.6 or higher
-
-No external dependencies required (standard library only)
-
-Optional: pyperclip for clipboard functionality
-
-🚀 Installation
-Clone or download the script:
-
-bash
+```bash
 wget https://path-to-script/zimbra_access2.py
 # or
 curl -O https://path-to-script/zimbra_access2.py
-Make it executable (Linux/Mac):
+```
 
-bash
+### Make Executable (Linux/Mac)
+
+```bash
 chmod +x zimbra_access2.py
-Optional: Install clipboard support:
+```
 
-bash
+### Optional: Install Clipboard Support
+
+```bash
 pip install pyperclip
-💻 Usage
-Basic Execution
-bash
+```
+
+---
+
+## Usage
+
+### Run the Script
+
+```bash
 python3 zimbra_access2.py
-Command Flow
-The script guides you through four simple steps:
+```
 
-Authentication Key - Enter your pre-shared key
+### Workflow
 
-Target Email - Specify the email address
+The script guides you through four steps:
 
-Mail Host - Set the Zimbra server (with default)
+1. Enter authentication key
+2. Enter target email
+3. Enter mail host (default provided)
+4. Set expiration time (optional)
 
-Expiration - Configure link lifetime (optional)
+---
 
-Example Session
-bash
-$ python3 zimbra_access2.py
+## Interactive Walkthrough
 
-🔐 AUTHORIZED USE ONLY - This tool should only be used with explicit permission
-Do you have authorization to use this tool? (yes/no): yes
+### Step 1: Authentication Key
 
-==========================================
-     ZIMBRA PRE-AUTH URL GENERATOR
-==========================================
+* Enter the pre-shared key configured on your Zimbra server
+* This field is required
+* The key is masked for security
 
-[Step 1/4] Authentication Key
-----------------------------------------
-Enter the pre-authentication key: ********************************
+### Step 2: Target Email
 
-[Step 2/4] Target Email Address
-----------------------------------------
-Enter the email address: admin@example.com
-📝 Interactive Walkthrough
-Step 1: Authentication Key
-Enter the pre-shared key configured in your Zimbra server
+* Enter a valid email address (e.g., [user@company.com](mailto:user@company.com))
+* Must include "@" and domain
 
-This is sensitive - it will be masked in the confirmation screen
+### Step 3: Mail Host
 
-Cannot be empty
+* Enter the Zimbra server hostname
+* Example: mail.yourcompany.com
+* Default value may be provided
 
-Step 2: Target Email
-Enter the full email address of the target user
+### Step 4: Expiration (Optional)
 
-Must include @ domain
+Set link expiration in seconds:
 
-Example: user@company.com
+* 900 (15 minutes, recommended)
+* 3600 (1 hour)
+* 0 (no expiration — use cautiously)
 
-Step 3: Mail Host
-Enter the Zimbra server hostname
+### Confirmation
 
-Default: mail.fic.gov.rw (configurable)
+Before generation, review:
 
-Example: mail.yourcompany.com
+* Masked authentication key
+* Target email
+* Mail host
+* Expiration duration
 
-Step 4: Expiration (Optional)
-Set link expiration in seconds
+---
 
-Common values:
+## Security Considerations
 
-900 - 15 minutes (recommended)
+### Important Notes
 
-3600 - 1 hour
+* Use only with proper authorization
+* Never share or expose authentication keys
+* Treat generated URLs as sensitive data
 
-0 - No expiration (use cautiously)
+### Best Practices
 
-Confirmation
-Review your settings before generation:
+* Use short expiration times (15–30 minutes)
+* Transmit links securely (encrypted channels)
+* Avoid logging or storing links in plaintext
+* Rotate pre-authentication keys regularly
+* Monitor usage in server logs
+* Apply IP restrictions where possible
 
-Authentication Key: ********f7 (last 8 chars shown)
+---
 
-Target Email: user@example.com
+## Troubleshooting
 
-Mail Host: mail.example.com
+### Common Issues
 
-Expiration: 900 seconds (15.0 minutes)
+| Issue                | Solution                          |
+| -------------------- | --------------------------------- |
+| Key cannot be empty  | Provide a valid key               |
+| Invalid email format | Ensure email includes @domain     |
+| Link not working     | Verify host, key, and system time |
+| Module not found     | Install pyperclip                 |
 
-🔒 Security Considerations
-⚠️ Important Security Notes
-Authorization Required - This tool is for authorized use only
+### Error Messages
 
-Key Protection - Never share or commit the authentication key
+* "Key cannot be empty" — authentication key required
+* "Invalid email format" — incorrect email structure
+* "Error generating link" — check inputs and connectivity
 
-Link Security - Generated URLs are sensitive and should be:
+---
 
-Transmitted securely (encrypted channels)
+## Technical Details
 
-Used immediately
+### URL Structure
 
-Not logged or stored in plaintext
-
-Expiration - Always set appropriate expiration times
-
-Audit Trail - Maintain logs of generated links for compliance
-
-Best Practices
-Use short expiration times (15-30 minutes)
-
-Regenerate pre-auth keys periodically
-
-Monitor pre-auth usage in Zimbra logs
-
-Implement IP restrictions where possible
-
-🛠️ Troubleshooting
-Common Issues
-Issue	Solution
-"Key cannot be empty"	Enter a valid pre-shared key
-"Invalid email format"	Ensure email contains @ symbol
-Link not working	Check hostname, key validity, timestamp sync
-"Module not found"	Install pyperclip: pip install pyperclip
-Error Messages
-"Key cannot be empty!" - Authentication key is required
-
-"Invalid email format" - Email must include domain (user@domain.com)
-
-"Error generating link" - Check network connectivity and parameters
-
-📄 Technical Details
-URL Structure
-text
+```
 https://{host}/service/preauth?account={email}&by=name&timestamp={ms}&expires={seconds}&preauth={token}
-Components
-account: Target email address
+```
 
-by: Authentication method ("name")
+### Components
 
-timestamp: Current time in milliseconds
+* `account`: target email
+* `by`: authentication method (name)
+* `timestamp`: current time in milliseconds
+* `expires`: validity duration in seconds
+* `preauth`: HMAC-SHA1 signature
 
-expires: Link validity period (seconds)
+### Signature Generation
 
-preauth: HMAC-SHA1 signature
-
-Signature Generation
-python
+```python
 data = f"{account}|name|{expires}|{timestamp}"
 token = hmac.new(key.encode(), data.encode(), hashlib.sha1).hexdigest()
-⚖️ Legal Notice
-text
-THIS SOFTWARE IS PROVIDED FOR AUTHORIZED SECURITY TESTING AND 
-ADMINISTRATIVE PURPOSES ONLY.
+```
 
-Unauthorized access to computer systems is illegal and unethical. 
-Users of this tool must:
+---
 
-1. Obtain explicit written permission before testing
-2. Comply with all applicable laws and regulations
-3. Respect privacy and data protection requirements
-4. Use only within the scope of authorization
-5. Report any discovered vulnerabilities responsibly
+## Legal Notice
 
-The developers assume no liability for misuse of this tool.
-🤝 Contributing
-Contributions are welcome! Please ensure:
+This software is intended for authorized security testing and administrative use only.
 
-Code follows PEP 8 guidelines
+Users must:
 
-Security features remain intact
+1. Obtain explicit permission before use
+2. Follow applicable laws and regulations
+3. Respect privacy and data protection standards
+4. Operate within approved scope
+5. Report vulnerabilities responsibly
 
-Documentation is updated
+The developers assume no liability for misuse.
 
-Changes are tested
+---
 
-📧 Support
-For issues or questions:
+## Contributing
 
-Check Troubleshooting section
+Contributions are welcome. Please ensure:
 
-Review Zimbra documentation
+* Code follows PEP 8 standards
+* Security features remain intact
+* Documentation is updated
+* Changes are tested
 
-Contact your system administrator
+---
 
-📚 Version History
-v2.0 - Interactive wizard, enhanced security, clipboard support
+## Support
 
-v1.0 - Basic command-line URL generation
+* Review the troubleshooting section
+* Consult official Zimbra documentation
+* Contact your system administrator
 
-Remember: With great power comes great responsibility. Use this tool ethically and legally.
+---
+
+## Version History
+
+* v2.0 — Interactive wizard, enhanced security, clipboard support
+* v1.0 — Basic command-line URL generation
+
+---
+
+Use this tool responsibly and ethically.
